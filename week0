@@ -1,0 +1,175 @@
+package week0;
+
+/*
+Week 0 Programming Project
+CSC144 Object-Oriented Programming
+Piper Leeson
+
+Worked with Alyssa and used code from the published solution
+*/
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Week0 {
+    
+    public static List<Integer> makeList(int size , Random rng) {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < size; i++) { int n = 10 + rng.nextInt(90);
+            list.add(n);
+        } // for return list;
+        return list;
+    } // makeList( int [] )
+    
+    public static void printList(List<Integer> data) { 
+        for (int n : data) {
+        System.out. println(n);
+    } // for
+        
+    public static int minimumValue(List<Integer> data) {
+        int bestGuessSoFar = data.get(0);
+        
+        for (int i = 1; i < data.size(); i++) {
+            if (data.get(i) < bestGuessSoFar) {
+                bestGuessSoFar = data.get(i);
+            }
+        }
+        return bestGuessSoFar;
+    }
+ 
+    public static int positionOfMinimumValue ( List<Integer> data ) {
+        int bestGuessSoFar = data.get(0);
+        
+        for (int i = 1; i < data.size(); i++) {
+            if (data.get(i) < data.get(bestGuessSoFar)) {
+                bestGuessSoFar = i ;
+            }
+        }
+        return bestGuessSoFar;
+    }
+
+    public static int positionOfMinimumValue( List<Integer> data , int start ) {
+        
+        int bestGuessSoFar = 0 ;
+        
+        for (int i = 1; i < data.size(); i++) {
+                if (data.get(i) < data.get(bestGuessSoFar)) {
+                bestGuessSoFar = i ;
+                }
+        }
+        
+        return bestGuessSoFar;
+    }
+    
+    public static int positionOfMinimumValue2( List<Integer> data , int start ) {
+        
+        int bestGuessSoFar = start ;
+        
+        for (int i = start + 1; i < data.size(); i++) {
+                if (data.get(i) < data.get(bestGuessSoFar)) {
+                bestGuessSoFar = i ;
+                }
+        }
+        
+        return bestGuessSoFar;
+    }
+    
+    public static void exchange(List<Integer> data , int i , int j) { 
+        int temp = data.get(i);
+        data.set(i, data.get(j));
+        data.set(j, temp);
+    } 
+    
+    public static void selectionSort(List<Integer> data) { 
+    for (int i = 0; i < data.size(); i++) {
+        int j = positionOfMinimumValue ( data , i ) ;
+        exchange(data , i , j );
+        } 
+    }
+
+    public static void insert( List<Integer> data, int start ) {
+        int i = start;
+        while (i > 0 && data.get(i) < data.get(i - 1)) {
+            exchange(data, i, i - 1);
+            i--;
+        }
+    }
+    
+    public static List<Integer> merge(List<Integer> a, List<Integer> b) {
+        
+        List<Integer> c = new ArrayList<>();
+        
+        int i = 0;
+        int j = 0;
+                
+        while (i < a.size() && j < b.size()) {
+            if (a.get(i) < b.get(j)) {
+                c.add(a.get(i));
+                i++;
+            }
+            else {
+                c.add(b.get(j));
+                j++;
+            }
+        }
+        
+        while ( i < a.size()) {
+            c.add(a.get(i));
+            i++;
+        }
+        
+        while(j < b.size()) {
+            c.add(b.get(j));
+            j++;
+        }
+        
+        return c;
+    }
+    
+    public static void main(String[] args) {
+        int numberOfSamples = 12;
+        Random rng = new Random();
+        List<Integer> samples = makeList(numberOfSamples, rng);
+        
+        System.out.println( "List_before_sorting . ");
+        printList(samples);
+        
+        System.out.println();
+        
+        selectionSort(samples);
+        System.out.println( "List_after_sorting . ");
+        printList(samples);
+        
+        List<Integer> partlySorted = new ArrayList<>();
+        partlySorted.add( 2 );
+        partlySorted.add( 5 );
+        partlySorted.add( 9 );
+        partlySorted.add( 14 );
+        partlySorted.add( 16 );
+        partlySorted.add( 10 );
+        partlySorted.add( 4 );
+        partlySorted.add( 6 );
+        
+        System.out.println( "\nFirst_5_elements_in_order.\n" );
+        printList( partlySorted );
+        
+        insert( partlySorted, 5 );
+        
+        System.out.println( "\nFirst_6_elements_in_order.\n" );
+        printList( partlySorted );
+        
+        List<Integer> a = makeList( 6, rng );
+        selectionSort(a);
+        List<Integer> b = makeList( 6, rng );
+        selectionSort(b);
+        
+        List<Integer> c = merge( a, b );
+        
+        System.out.println("\nA_short_sorted_list.\n");
+        printList(a);
+        System.out.println("\nAnother_short_sorted_list.\n");
+        printList(b);
+        System.out.println("\nthe two lists merged.\n");
+        printList(c);        
+    }
+}
