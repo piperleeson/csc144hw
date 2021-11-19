@@ -17,9 +17,9 @@ public class Week0 {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < size; i++) { int n = 10 + rng.nextInt(90);
             list.add(n);
-        } // for return list;
+        } 
         return list;
-    } // makeList( int [] )
+    } 
     
     public static void printList(List<Integer> data) { 
         for (int n : data) {
