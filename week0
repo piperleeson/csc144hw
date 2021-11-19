@@ -24,7 +24,8 @@ public class Week0 {
     public static void printList(List<Integer> data) { 
         for (int n : data) {
         System.out. println(n);
-    } // for
+        } 
+    }
         
     public static int minimumValue(List<Integer> data) {
         int bestGuessSoFar = data.get(0);
